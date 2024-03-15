@@ -1,0 +1,584 @@
+<sdf version='1.9'>
+  <world name='default'>
+    <physics type="ode">
+      <max_step_size>0.004</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+      <real_time_update_rate>250</real_time_update_rate>
+    </physics>
+    <plugin name='gz::sim::systems::Physics' filename='gz-sim-physics-system'/>
+    <plugin name='gz::sim::systems::UserCommands' filename='gz-sim-user-commands-system'/>
+    <plugin name='gz::sim::systems::SceneBroadcaster' filename='gz-sim-scene-broadcaster-system'/>
+    <plugin name='gz::sim::systems::Contact' filename='gz-sim-contact-system'/>
+    <plugin name='gz::sim::systems::Imu' filename='gz-sim-imu-system'/>
+    <plugin name='gz::sim::systems::AirPressure' filename='gz-sim-air-pressure-system'/>
+    <plugin name='gz::sim::systems::Sensors' filename='gz-sim-sensors-system'>
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <gui fullscreen='false'>
+
+    </gui>
+    <gravity>0 0 -9.8</gravity>
+    <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+    <atmosphere type='adiabatic'/>
+    <scene>
+      <grid>false</grid>
+      <ambient>0.4 0.4 0.4 1</ambient>
+      <background>0.7 0.7 0.7 1</background>
+      <shadows>true</shadows>
+    </scene>
+
+    <!--PLANO-->
+
+    <model name='ground_plane'>
+      <static>true</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>1 1</size>
+            </plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Grass</name>
+              <uri>/usr/share/gazebo-11/media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <pose>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0 0 0 0 -0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+
+    <!--Parte vertical da Torre 1 -->
+    <model name='transmission_tower_vertical'>
+      <static>true</static>
+      <link name='torre_vertical'>
+        <collision name='collision_vertical'>
+          <geometry>
+          <cylinder>
+            <radius>0.1</radius>
+            <length>15</length>
+          </cylinder>
+        </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual_vertical'>
+          <geometry>
+          <cylinder>
+            <radius>0.1</radius>
+            <length>15</length>
+          </cylinder>
+        </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Wood</name>
+              <uri>/usr/share/gazebo-11/media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <pose>3 -5 0 0 -0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0 0 0 0 -0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+
+    <!--Parte horizontal da Torre 1-->
+    <model name='transmission_tower_horizontal'>
+      <static>true</static>
+      <link name='torre_horizontal'>
+        <collision name='collision_horizontal'>
+          <geometry>
+          <box>
+            <size>2 0.25 0.2</size>
+          </box>
+        </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual_horizontal'>
+          <geometry>
+         <box>
+            <size>2 0.25 0.2</size>
+          </box>
+        </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Wood</name>
+              <uri>/usr/share/gazebo-11/media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <pose>3 -5 7.5 0 -0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0 0 0 0 -0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+
+
+    <!--Parte vertical da Torre 2-->
+    <model name='transmission_tower_vertical2'>
+      <static>true</static>
+      <link name='torre_vertical'>
+        <collision name='collision_vertical2'>
+          <geometry>
+          <cylinder>
+            <radius>0.1</radius>
+            <length>15</length>
+          </cylinder>
+        </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual_vertical2'>
+          <geometry>
+          <cylinder>
+            <radius>0.1</radius>
+            <length>15</length>
+          </cylinder>
+        </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Wood</name>
+              <uri>/usr/share/gazebo-11/media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <pose>3 15 0 0 -0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0 0 0 0 -0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+
+    <!--Parte horizontal da Torre 2-->
+    <model name='transmission_tower_horizontal2'>
+      <static>true</static>
+      <link name='torre_horizontal'>
+        <collision name='collision_horizontal2'>
+          <geometry>
+          <box>
+            <size>2 0.25 0.2</size>
+          </box>
+        </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual_horizontal'>
+          <geometry>
+         <box>
+            <size>2 0.25 0.2</size>
+          </box>
+        </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Wood</name>
+              <uri>/usr/share/gazebo-11/media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <pose>3 15 7.5 0 -0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0 0 0 0 -0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+
+  <!--Cabo 1-->
+  <model name='cabo1'>
+      <static>true</static>
+      <link name='cabo1'>
+        <collision name='cabo1_collision'>
+          <geometry>
+          <cylinder>
+            <radius>0.01</radius>
+            <length>20</length>
+          </cylinder>
+        </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='cabo'>
+          <geometry>
+          <cylinder>
+            <radius>0.01</radius>
+            <length>20</length>
+          </cylinder>
+        </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Black</name>
+              <uri>/usr/share/gazebo-11/media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <pose>2.3 5 7.3 1.5708 -0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0 0 0 0 -0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+
+  <!--Cabo 2-->
+  <model name='cabo2'>
+        <static>true</static>
+        <link name='cabo2'>
+          <collision name='cabo2_collision'>
+            <geometry>
+            <cylinder>
+              <radius>0.01</radius>
+              <length>20</length>
+            </cylinder>
+          </geometry>
+            <surface>
+              <friction>
+                <ode/>
+              </friction>
+              <bounce/>
+              <contact/>
+            </surface>
+          </collision>
+          <visual name='cabo'>
+            <geometry>
+            <cylinder>
+              <radius>0.01</radius>
+              <length>20</length>
+            </cylinder>
+          </geometry>
+            <material>
+              <script>
+                <name>Gazebo/Black</name>
+                <uri>/usr/share/gazebo-11/media/materials/scripts/gazebo.material</uri>
+              </script>
+            </material>
+          </visual>
+          <pose>3.7 5 7.3 1.5708 -0 0</pose>
+          <inertial>
+            <pose>0 0 0 0 -0 0</pose>
+            <mass>1</mass>
+            <inertia>
+              <ixx>1</ixx>
+              <ixy>0</ixy>
+              <ixz>0</ixz>
+              <iyy>1</iyy>
+              <iyz>0</iyz>
+              <izz>1</izz>
+            </inertia>
+          </inertial>
+          <enable_wind>false</enable_wind>
+        </link>
+        <pose>0 0 0 0 -0 0</pose>
+        <self_collide>false</self_collide>
+      </model>
+
+<!--Suporte-->
+  <model name='suporte_cabo'>
+    <static>true</static>
+    <link name="link1">
+      <pose>2.3 -5 7.4 0 -0 0</pose>
+      <visual name="vis1">
+        <pose>0 0 0 0 0 0</pose>
+      <geometry>
+        <cylinder>
+          <radius>0.1</radius>
+          <length>0.1</length>
+        </cylinder>
+      </geometry>
+      <material>
+        <script>
+          <name>Gazebo/Black</name>
+          <uri>/usr/share/gazebo-11/media/materials/scripts/gazebo.material</uri>
+        </script>
+      </material>
+    </visual>
+    <visual name="vis2">
+      <pose>0 0 -0.05 0 -0 0</pose>
+      <geometry>
+        <sphere>
+          <radius>0.1</radius>
+        </sphere>
+      </geometry>
+      <material>
+        <script>
+          <name>Gazebo/Black</name>
+          <uri>/usr/share/gazebo-11/media/materials/scripts/gazebo.material</uri>
+        </script>
+      </material>
+    </visual>
+    <visual name="vis3">
+        <pose> 1.4 0 0 0 -0 0</pose>
+      <geometry>
+        <cylinder>
+          <radius>0.1</radius>
+          <length>0.1</length>
+        </cylinder>
+      </geometry>
+      <material>
+        <script>
+          <name>Gazebo/Black</name>
+          <uri>/usr/share/gazebo-11/media/materials/scripts/gazebo.material</uri>
+        </script>
+      </material>
+    </visual>
+    <visual name="vis4">
+      <pose>1.4 0 -0.05 0 -0 0</pose>
+      <geometry>
+        <sphere>
+          <radius>0.1</radius>
+        </sphere>
+      </geometry>
+      <material>
+        <script>
+          <name>Gazebo/Black</name>
+          <uri>/usr/share/gazebo-11/media/materials/scripts/gazebo.material</uri>
+        </script>
+      </material>
+    </visual>
+    <visual name="vis5">
+        <pose>0 20 0 0 0 0</pose>
+      <geometry>
+        <cylinder>
+          <radius>0.1</radius>
+          <length>0.1</length>
+        </cylinder>
+      </geometry>
+      <material>
+        <script>
+          <name>Gazebo/Black</name>
+          <uri>/usr/share/gazebo-11/media/materials/scripts/gazebo.material</uri>
+        </script>
+      </material>
+    </visual>
+    <visual name="vis6">
+      <pose>0 20 -0.05 0 -0 0</pose>
+      <geometry>
+        <sphere>
+          <radius>0.1</radius>
+        </sphere>
+      </geometry>
+      <material>
+        <script>
+          <name>Gazebo/Black</name>
+          <uri>/usr/share/gazebo-11/media/materials/scripts/gazebo.material</uri>
+        </script>
+      </material>
+    </visual>
+    <visual name="vis7">
+        <pose> 1.4 20 0 0 -0 0</pose>
+      <geometry>
+        <cylinder>
+          <radius>0.1</radius>
+          <length>0.1</length>
+        </cylinder>
+      </geometry>
+      <material>
+        <script>
+          <name>Gazebo/Black</name>
+          <uri>/usr/share/gazebo-11/media/materials/scripts/gazebo.material</uri>
+        </script>
+      </material>
+    </visual>
+    <visual name="vis8">
+      <pose>1.4 20 -0.05 0 -0 0</pose>
+      <geometry>
+        <sphere>
+          <radius>0.1</radius>
+        </sphere>
+      </geometry>
+      <material>
+        <script>
+          <name>Gazebo/Black</name>
+          <uri>/usr/share/gazebo-11/media/materials/scripts/gazebo.material</uri>
+        </script>
+      </material>
+    </visual>
+    </link>
+  </model>
+
+  <!--\Alvo-
+  <model name='alvop'>
+    <static>true</static>
+    <link name='alvo'>
+      <collision name='alvoo'>
+        <geometry>
+        <box>
+          <size>0.7 0.1 0.7</size>
+        </box>
+      </geometry>
+        <surface>
+          <friction>
+            <ode/>
+          </friction>
+          <bounce/>
+          <contact/>
+        </surface>
+      </collision>
+      <visual name='allvo'>
+        <geometry>
+          <box>
+            <size>0.7 0.1 0.7</size>
+          </box>
+      </geometry>
+        <material>
+          <script>
+            <name>Gazebo/Alvo</name>
+            <uri>/home/talles/UFU/TCC/PX4-Autopilot/Tools/simulation/gazebo-classic/sitl_gazebo-classic/worlds/sources/alvo.material</uri>
+          </script>
+        </material>
+      </visual>
+      <pose>4 0.5 0 1.5708 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>1</mass>
+        <inertia>
+          <ixx>1</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1</iyy>
+          <iyz>0</iyz>
+          <izz>1</izz>
+        </inertia>
+      </inertial>
+      <enable_wind>false</enable_wind>
+    </link>
+    <pose>0 0 0 0 -0 0</pose>
+    <self_collide>false</self_collide>
+  </model> -->
+
+    <light name='sunUTC' type='directional'>
+      <pose>0 0 500 0 -0 0</pose>
+      <cast_shadows>true</cast_shadows>
+      <intensity>1</intensity>
+      <direction>0.001 0.625 -0.78</direction>
+      <diffuse>0.904 0.904 0.904 1</diffuse>
+      <specular>0.271 0.271 0.271 1</specular>
+      <attenuation>
+        <range>2000</range>
+        <linear>0</linear>
+        <constant>1</constant>
+        <quadratic>0</quadratic>
+      </attenuation>
+      <spot>
+        <inner_angle>0</inner_angle>
+        <outer_angle>0</outer_angle>
+        <falloff>0</falloff>
+      </spot>
+    </light>
+  </world>
+</sdf>

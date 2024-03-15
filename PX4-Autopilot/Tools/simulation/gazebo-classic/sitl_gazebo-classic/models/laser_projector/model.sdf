@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <model name="laser_projector">
+      <pose>0 0 1 0.0 0.0 0</pose>
+      <link name="projector_link">
+        <inertial>
+          <pose>0.01 0.025 0.025 0 0 0</pose>
+          <mass>0.01</mass>
+          <inertia>
+            <ixx>4.15e-6</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>2.407e-6</iyy>
+            <iyz>0</iyz>
+            <izz>2.407e-6</izz>
+          </inertia>
+        </inertial>
+        <!-- <collision name="collision"> -->
+          <geometry>
+            <sphere>
+              <radius>0.1</radius>
+            </sphere>
+          </geometry>
+        <!-- </collision> -->
+        <visual name="visual">
+          <geometry>
+            <sphere>
+              <radius>0.1</radius>
+            </sphere>
+          </geometry>
+          <material>
+            <script>Gazebo/Grey</script>
+          </material>
+        </visual>
+        <projector name="texture_projector">
+          <pose>0 0 0 0 0 0</pose>
+          <!-- this file is in  /usr/share/gazebo-11/media/materials/textures -->
+          <texture>laser_texture.png</texture>
+          <fov>0.959931088597</fov>
+          <near_clip>0.1</near_clip>
+          <far_clip>10</far_clip>
+        </projector>
+      </link>
+  </model>
+</sdf>
+
+<!-- vim: set et fenc= ff=unix sts=0 sw=2 ts=2 : -->

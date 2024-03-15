@@ -1,0 +1,202 @@
+<?xml version="1.0" ?>
+<sdf version='1.5'>
+  <model name='iris_laser'>
+
+    <include>
+      <uri>model://iris</uri>
+    </include> 
+
+    <include>
+      <uri>model://lidar</uri>
+      <pose>-0.12 0 0 0 3.1415 0</pose>
+    </include>
+    <joint name="lidar_joint" type="fixed">
+      <child>lidar::link</child>
+      <parent>iris::base_link</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <upper>0</upper>
+          <lower>0</lower>
+        </limit>
+      </axis>
+    </joint>
+
+    <!-- <include>
+      <uri>model://flow_cam</uri>
+      <pose>-0.12 0.05 0 0 1.5708 1.5708</pose>
+    </include>
+    <joint name="flow_joint" type="revolute">
+      <child>camera::link</child>
+      <parent>iris::base_link</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <upper>0</upper>
+          <lower>0</lower>
+        </limit>
+      </axis>
+    </joint> -->
+    
+    
+
+    <include>
+      <uri>model://laser_projector</uri>
+      <pose>0 0 0.1 0 0 0</pose>
+    </include>
+    <joint name="laser_projector_joint" type="revolute">
+      <child>laser_projector::projector_link</child>
+      <parent>iris::base_link</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <upper>0</upper>
+          <lower>0</lower>
+        </limit>
+      </axis>
+    </joint>
+
+    <!-- <include>
+      <uri>model://rplidar</uri>
+      <pose>0 0 0.1 0 0 0</pose>
+    </include>
+    <joint name="rplidar_joint" type="revolute">
+      <child>rplidar::link</child>
+      <parent>iris::base_link</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <upper>0</upper>
+          <lower>0</lower>
+        </limit>
+      </axis>
+    </joint> -->
+
+
+    <!-- adding camera -->
+
+    <link name="cgo3_camera_link">
+      <inertial>
+        <!-- place holder -->
+        <pose>-0.041 0 -0.162 0 0 0</pose>
+        <mass>0.1</mass>
+        <inertia>
+          <ixx>0.001</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.001</iyy>
+          <iyz>0</iyz>
+          <izz>0.001</izz>
+        </inertia>
+      </inertial>
+      <collision name='cgo3_camera_collision'>
+        <pose>-0.041 0 -0.162 0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.035</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>1</mu>
+              <mu2>1</mu2>
+            </ode>
+          </friction>
+          <contact>
+            <ode>
+              <kp>1e+8</kp>
+              <kd>1</kd>
+              <max_vel>0.01</max_vel>
+              <min_depth>0.001</min_depth>
+            </ode>
+          </contact>
+        </surface>
+      </collision>
+      <visual name='cgo3_camera_visual'>
+        <pose>-0.05 0 0 0 0 3.141592</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>model://typhoon_h480/meshes/cgo3_camera_remeshed_v1.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/DarkGrey</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+      <sensor name="camera_imu" type="imu">
+        <always_on>1</always_on>
+      </sensor>
+      <sensor name="camera" type="camera">
+        <pose>0.0 0 -0.162 0 0 0</pose>
+        <camera>
+          <horizontal_fov>2.0</horizontal_fov>
+          <image>
+            <format>R8G8B8</format>
+            <width>640</width>
+            <height>360</height>
+          </image>
+          <clip>
+            <near>0.05</near>
+            <far>15000</far>
+          </clip>
+        </camera>
+        <always_on>1</always_on>
+        <update_rate>10</update_rate>
+        <visualize>true</visualize>
+        <plugin name="GstCameraPlugin" filename="libgazebo_gst_camera_plugin.so">
+            <robotNamespace></robotNamespace>
+            <udpHost>127.0.0.1</udpHost>
+            <udpPort>5600</udpPort>
+        </plugin>
+        <plugin name="CameraManagerPlugin" filename="libgazebo_camera_manager_plugin.so">
+            <robotNamespace>iris_laser</robotNamespace>
+            <interval>1</interval>
+            <width>3840</width>
+            <height>2160</height>
+            <maximum_zoom>8.0</maximum_zoom>
+            <video_uri>udp://127.0.0.1:5600</video_uri>
+            <system_id>1</system_id>
+            <cam_component_id>100</cam_component_id>
+            <mavlink_cam_udp_port>14530</mavlink_cam_udp_port>
+        </plugin>
+      </sensor>
+    </link>
+
+    <joint name='cgo3_camera_joint' type='revolute'>
+      <child>cgo3_camera_link</child>
+      <parent>iris::base_link</parent>
+      <pose>-0.01 0.03 -0.162 0 0 0</pose>
+      <axis>
+        <xyz>0 -1 0</xyz>
+        <limit>
+          <lower>-1.5708</lower>
+          <upper>0.7854</upper>
+          <effort>100</effort>
+          <velocity>-1</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.1</damping>
+        </dynamics>
+        <use_parent_model_frame>1</use_parent_model_frame>
+      </axis>
+      <physics>
+        <ode>
+          <implicit_spring_damper>1</implicit_spring_damper>
+          <limit>
+            <!-- testing soft limits -->
+            <cfm>0.1</cfm>
+            <erp>0.2</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+
+  </model>
+</sdf>
+<!-- vim: set noet fenc=utf-8 ff=unix sts=0 sw=4 ts=4 : -->
+

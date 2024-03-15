@@ -62,7 +62,7 @@ if [ "$model" == "" ] || [ "$model" == "none" ]; then
 	echo "empty model, setting iris as default"
 	model="iris"
 fi
-
+echo "model chosen: ${model}"
 # kill process names that might stil
 # be running from last time
 pkill -x gazebo || true
